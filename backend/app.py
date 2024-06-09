@@ -13,9 +13,13 @@ def hello():
 def upload_to_gpt():
     img_path = "vision/chair.jpeg"
     pic_handler = ChatGPTPicHandler()
-    # response = pic_handler.handle_upload(img_path)
-    response = pic_handler.handle_upload_dummy(img_path)
-    return response
+    response = pic_handler.handle_upload(img_path)
+    # response = pic_handler.handle_upload_dummy(img_path)
+    content = response['choices'][0]['message']['content']
+    item = content.split(".")[0]
+    description = ''.join(content.split(".")[1:])
+
+    return (item, description)
 
 @app.route("/upload_to_ebay", methods=['GET'])
 def upload_to_ebay():
